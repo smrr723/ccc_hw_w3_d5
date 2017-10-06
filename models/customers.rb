@@ -47,7 +47,7 @@ end
 #
 # ---- Creating Classes ----
 
-# 1. Make all file requires, i.e. require_relative('pg') and other class files
+# 1. Make all file requires, i.e. require_relative('pg') and other class file dependents
 #
 # 2. Create class
 #
