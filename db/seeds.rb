@@ -7,12 +7,27 @@ require( 'pry-byebug' )
 Customer.delete_all()
 Film.delete_all()
 
-customer1 = Customer.new({'name' => 'Scott Murray', 'funds' => 100})
+customer1 = Customer.new({'name' => 'Satoshi Nakamoto', 'funds' => 100000})
 customer1.save()
+customer2 = Customer.new({'name' => 'Elon Musk', 'funds' => 1000000})
+customer2.save()
+customer3 = Customer.new({'name' => 'Sergey Brin', 'funds' => 1000000})
+customer3.save()
+customer4 = Customer.new({'name' => 'Nikola Tesla', 'funds' => 10})
+customer4.save()
+customer5 = Customer.new({'name' => 'Albert Einstein', 'funds' => 100})
+customer5.save()
 
-film1 = Film.new({'name' => 'Blade Runner 2049', 'price' => 10})
+film1 = Film.new({'name' => 'Blade Runner 2049', 'price' => 20})
 film1.save()
-
+film2 = Film.new({'name' => 'Lost in Translation', 'price' => 10})
+film2.save()
+film3 = Film.new({'name' => 'Spirited Away', 'price' => 10})
+film3.save()
+film4 = Film.new({'name' => 'Shawshank Redemption', 'price' => 10})
+film4.save()
+film5 = Film.new({'name' => 'Akira', 'price' => 10})
+film5.save()
 
 binding.pry
 
