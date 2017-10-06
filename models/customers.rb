@@ -1,7 +1,9 @@
 require_relative('../db/sqlrunner')
 require_relative('../models/films')
 
+class Customer
 
+end
 # 1. Make all file requires, i.e. require_relative('pg') and other class files
 #
 # 2. Create class
