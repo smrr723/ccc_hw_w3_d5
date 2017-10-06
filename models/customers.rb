@@ -3,7 +3,50 @@ require_relative('../models/films')
 
 class Customer
 
+attr_accessor :name, :funds
+attr_reader :id
+
+def initialize( options )
+  @id = options['id'].to_i if options['id']
+  @name = options['name']
+  @funds = options['funds'].to_i
 end
+
+def save()
+  sql = "INSERT INTO customers (name, funds)
+  VALUES ($1, $2)
+  RETURNING id;"
+  values = [@name, @funds]
+  customer = SqlRunner.run(sql, values).first
+  @id = customer['id'].to_i
+end
+
+def self.view_all()
+  sql = "SELECT * FROM customers"
+  values = []
+  customers = SqlRunner.run( sql, values )
+  result = customers.map {|customer| Customer.new( customer )}
+  return result
+end
+
+def update()
+  sql = "UPDATE customers SET (name, funds) VALUES ($1, $2) WHERE id = $3;"
+  values = [@name, @funds, @id]
+  SqlRunner.run(sql, values)
+end
+
+
+def self.delete_all()
+  sql = "DELETE FROM customers"
+  values = []
+  SqlRunner.run(sql, values)
+end
+
+
+end
+#
+# ---- Creating Classes ----
+
 # 1. Make all file requires, i.e. require_relative('pg') and other class files
 #
 # 2. Create class
@@ -22,4 +65,15 @@ end
 # 7. Remember to get the id from the DB, returning a string, so have to convert it to an integer.  This sets your instance variable @id in your ruby class file, so you can access it easily.
 #
 # 8. Note: prepared statements defend against sql injection.
+# #
+# ---- Creating the Database ----
 #
+# 1. in terminal "createdb database_name"
+# 2. in terminal "touch db/database_name.sql"
+# 3. Create your tables in your database as follows:-
+#
+# - CREATE TABLE table_name (values)
+# - id should always be first, and followed by SERIAL4/8 PRIMARY KEY
+# - if creating a join table with reference values from two others, use the REFERENCES command, and always follow with ON DELETE CASCADE to delete values in this table if the referenced entry (parent) is deleted.
+#
+# 4. in your runner file, ensure if you have data entry, always use the PG::Connection.escape_string command, which will protect against sql injection.
